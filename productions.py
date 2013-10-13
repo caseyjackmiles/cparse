@@ -30,6 +30,6 @@ class Production:
 		printRHS.insert(self.placeholderPos, '@')
 		return "%s->%s" % (self.LHS, ''.join(printRHS))
 	
-	def printForGrammar(self):
-		sys.stdout.write("%s->%s" % (self.LHS, self.RHS))
+	def stringForGrammar(self):
+		return "%s->%s\n" % (self.LHS, self.RHS)
 

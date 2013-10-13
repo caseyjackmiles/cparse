@@ -10,10 +10,17 @@ def main():
 			./cparse productionsFile.txt """
 		sys.exit(0)
 
+	# Read in the original grammar
+	# and augment it
 	origGrammar = createAugmentedGrammar()
+
 	print "Augmented Grammar\n-----------------"
 	for prod in origGrammar:
-		prod.printForGrammar()
+		sys.stdout.write(prod.stringForGrammar())
+
+	print "============================="
+	grammarSymbols = retrieveAllGrammarSymbols()
+	
 
 
 def createAugmentedGrammar():
@@ -30,6 +37,26 @@ def createAugmentedGrammar():
 	grammarFile.close()
 
 	return grammar
+
+def retrieveAllGrammarSymbols():
+	grammarSymbols = list()
+	with open(sys.argv[1], 'r') as grammarFile:
+		for line in grammarFile.readlines():
+			line = line.strip('\n')
+			# Get the position of the first '->'
+			i = line.find("->")			
+			if(i == -1):
+				continue
+			else:
+				symbolsFromLine = list(line[:i]) + list(line[i+2:])
+
+				for symbol in symbolsFromLine:
+					if symbol not in grammarSymbols:
+						grammarSymbols.append(symbol)
+
+	grammarFile.close()
+
+	return grammarSymbols
 
 if __name__ == "__main__":
 	main()

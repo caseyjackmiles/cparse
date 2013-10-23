@@ -1,4 +1,4 @@
-import re, sys
+import re, sys, copy
 
 class Production:
 	""" Stores information about grammar productions """
@@ -23,7 +23,16 @@ class Production:
 		 	raise Exception(errorMessage)
 	
 	def charFollowingPlaceholder(self):
-		return RHS[placeholderPos + 1]
+		return self.RHS[self.placeholderPos]
+
+	def goto(self, symbol):
+		if(self.charFollowingPlaceholder() == symbol):
+			#create a copy of the current production	
+			prodToReturn = copy.deepcopy(self)
+			prodToReturn.placeholderPos += 1
+			return prodToReturn
+		else:
+			return None
 
 	def __str__(self):
 		printRHS = list(self.RHS)

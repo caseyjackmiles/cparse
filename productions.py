@@ -23,7 +23,7 @@ class Production:
 		 	raise Exception(errorMessage)
 	
 	def charFollowingPlaceholder(self):
-		return self.RHS[self.placeholderPos + 1]
+		return self.RHS[self.placeholderPos]
 
 	def goto(self, symbol):
 		if(self.charFollowingPlaceholder() == symbol):
@@ -32,7 +32,7 @@ class Production:
 			prodToReturn.placeholderPos += 1
 			return prodToReturn
 		else:
-			return null
+			return None
 
 	def __str__(self):
 		printRHS = list(self.RHS)

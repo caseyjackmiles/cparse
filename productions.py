@@ -29,6 +29,14 @@ class Production:
 		printRHS = list(self.RHS)
 		printRHS.insert(self.placeholderPos, '@')
 		return "%s->%s" % (self.LHS, ''.join(printRHS))
+
+	def __eq__(self, other):
+		if not isinstance(other, Production):
+			return false
+
+		return ((self.LHS == other.LHS) and
+			(self.RHS == other.RHS) and
+			(self.placeholderPos == other.placeholderPos))
 	
 	def stringForGrammar(self):
 		return "%s->%s\n" % (self.LHS, self.RHS)
